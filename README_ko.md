@@ -19,6 +19,10 @@ INHA_PASSWORD=your_password
 $ pip install python-dotenv requests bs4
 ```
 
+``` sh
+$ pip install -r requirements.txt
+```
+
 ## 실행방법
 
 프로젝트를 클론한 디렉토리에서 터미널을 열고 다음 명령어를 실행하세요:

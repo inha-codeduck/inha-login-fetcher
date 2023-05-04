@@ -19,6 +19,10 @@ Replace `your_username` and `your_password` with your actual Inha University use
 $ pip install python-dotenv requests bs4
 ```
 
+``` sh
+$ pip install -r requirements.txt
+```
+
 ## How to run
 
 Open the terminal in the cloned directory of the project and run the following command:
