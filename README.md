@@ -1,30 +1,54 @@
-# INHA Login Checker
+# INHA Login Fetcher
 
-이 프로젝트는 파이썬을 사용하여 인하대학교 사이트에 로그인을 확인하고 이름과 학번을 가져오는 스크립트입니다.
+This project is a Python script that logs in to the Inha University site, checks the login status, and retrieves the user's name and student ID.
 
-## 시작하기 전에
+## Before you begin
 
-1. `.env` 파일을 생성하고 아래와 같이 사용자 아이디와 비밀번호를 입력하세요.
+1. Create a `.env` file and enter your username and password as shown below.
 
 ``` env
 INHA_USERNAME=your_username
 INHA_PASSWORD=your_password
 ```
 
-`your_username` 및 `your_password`를 실제 사용자 아이디와 비밀번호로 바꿔주세요.
+Replace `your_username` and `your_password` with your actual Inha University username and password.
 
-2. 필요한 패키지를 설치하세요. 터미널에서 다음 명령어를 실행하세요:
+2. Install the necessary packages. In the terminal, run the following command:
 
 ``` sh
-pip install python-dotenv requests bs4
+$ pip install python-dotenv requests bs4
 ```
 
-## 실행방법
+## How to run
 
-프로젝트를 클론한 디렉토리에서 터미널을 열고 다음 명령어를 실행하세요:
+Open the terminal in the cloned directory of the project and run the following command:
+
+``` sh
+$ python main.py
+```
+
+If the login is successful, the user's name and student ID will be displayed. If it fails, "Login failed." will be displayed.
+
+## Example
 
 ``` python
-python main.py
-```
+from inha_cloud import InhaCloud
 
-로그인이 성공하면 이름과 학번이 출력되고, 실패하면 "로그인에 실패하였습니다."가 출력됩니다.
+def main():
+    # Instantiate an InhaCloud object
+    inha = InhaCloud()
+
+    # Login to the InhaCloud with the username and password stored in the .env file
+    inha.login()
+
+    # Login to the InhaCloud with the provided username and password
+    inha.login(username="your_username", password="your_password")
+
+    # Alternatively, you can set the username and password instance variables and then login without passing them as arguments
+    inha.username = "your_username"
+    inha.password = "your_password"
+    inha.login()
+
+if __name__ == '__main__':
+    main()
+```
