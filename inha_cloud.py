@@ -16,7 +16,11 @@ class InhaCloud:
         self.login_url = 'https://cloud.inha.ac.kr/auth/login'
 
         # Create session
-        self.session = requests.Session()
+        self._session = requests.Session()
+
+        # Login user information
+        self.student_id = None
+        self.name = None
 
     def login(self, username=None, password=None):
         # If user ID and password are not provided, try to get them from the parameters
@@ -42,33 +46,37 @@ class InhaCloud:
         }
 
         # Request login page
-        res = self.session.get(self.login_url)
+        res = self._session.get(self.login_url)
 
         # Send login request
-        res = self.session.post(self.login_url, data=self.payload)
+        res = self._session.post(self.login_url, data=self.payload)
 
-        # If login fails, raise an exception
+        # If login fails, return False
         try:
-            res.raise_for_status()
-        except requests.exceptions.HTTPError as e:
-            print(f"Login failed. Error code: {res.status_code}")
+            self.fetch_login_info()
+            if self.name and self.student_id:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Login failed.")
             print(e)
-            exit()
+            return False
 
+    def fetch_login_info(self):
         # Request portal page
-        res = self.session.get('https://cloud.inha.ac.kr')
+        res = self._session.get('https://cloud.inha.ac.kr')
 
         # Create BeautifulSoup object
         soup = BeautifulSoup(res.content, 'html.parser')
 
-        # Print login user information
-        try:
-            login_header = soup.select_one('.loginHeader')
-            name = login_header.string.strip().split()[0]
-            student_id = login_header['data-userid']
-            print(f"Name: {name}, Student ID: {student_id}")
-            return {'name': name, 'student_id': student_id}
-        except Exception as e:
-            print("An error occurred while finding user information.")
-            print(e)
-            print("Login failed.")
+        # Get login user information
+        login_header = soup.select_one('.loginHeader')
+        self.name = login_header.string.strip().split()[0]
+        self.student_id = login_header['data-userid']
+
+        # Check if login is successful
+        if self.name and self.student_id:
+            return {'name': self.name, 'student_id': self.student_id}
+        else:
+            return None

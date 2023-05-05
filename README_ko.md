@@ -53,6 +53,15 @@ def main():
     inha.password = "your_password"
     inha.login()
 
+    # If login fails, exit the program
+    if not inha.login():
+        exit()
+
+    # Fetch login information and print name and student ID
+    login_info = inha.fetch_login_info()
+    print(login_info["name"])
+    print(login_info["student_id"])
+
 if __name__ == '__main__':
     main()
 ```
