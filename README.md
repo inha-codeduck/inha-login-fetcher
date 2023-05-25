@@ -36,7 +36,7 @@ If the login is successful, the user's name and student ID will be displayed. If
 ## Example
 
 ``` python
-from inha_cloud import InhaCloud
+from inha_cloud.inha_cloud import InhaCloud
 
 def main():
     # Instantiate an InhaCloud object

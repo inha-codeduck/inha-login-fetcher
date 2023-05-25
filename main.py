@@ -1,4 +1,4 @@
-from inha_cloud import InhaCloud
+from inha_cloud.inha_cloud import InhaCloud
 
 def main():
     # Instantiate an InhaCloud object
