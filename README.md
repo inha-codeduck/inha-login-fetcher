@@ -2,6 +2,14 @@
 
 This project is a Python script that logs in to the Inha University site, checks the login status, and retrieves the user's name and student ID.
 
+## Install Python Package
+
+You can now download the Python package of the latest code from PyPI.
+
+``` sh
+$ pip install inha-cloud
+```
+
 ## Before you begin
 
 1. Create a `.env` file and enter your username and password as shown below.
